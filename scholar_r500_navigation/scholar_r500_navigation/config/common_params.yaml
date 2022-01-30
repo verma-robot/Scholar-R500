@@ -7,10 +7,10 @@ max_obstacle_height: 0.3
 #障碍物层
 obstacles_layer:
   enabled: true
-  track_unknown_space: true #像素具有三种状态，致命障碍/自由/未知
-  max_obstacle_height: 0.3    #障碍物最大高度，应略高于机器人高度
-  min_obstacle_height: 0.05    #障碍物最低高度
-  footprint_clearing_enabled: true #清除机器人足迹
+  track_unknown_space: true
+  max_obstacle_height: 0.3
+  min_obstacle_height: 0.05
+  footprint_clearing_enabled: true
   obstacle_range: 7.5
   raytrace_range: 8
 
@@ -21,25 +21,25 @@ obstacles_layer:
     clearing: true
     marking: true
     topic: /scan  
-    max_obstacle_height: 0.3    #障碍物最大高度，应略高于机器人高度
-    min_obstacle_height: 0.05    #障碍物最低高度 
+    max_obstacle_height: 0.3
+    min_obstacle_height: 0.05
     obstacle_range: 7.5
     raytrace_range: 8
 
 
 local_inflation_layer:
   enabled: true
-  inflation_radius: 0.15 #机器人膨胀半径
-  inflate_unknown: true #膨胀到未知区域 
+  inflation_radius: 0.15
+  inflate_unknown: true
 
 global_inflation_layer:
-  inflation_radius: 0.2 #机器人膨胀半径
-  inflate_unknown: false #膨胀到未知区域 
+  inflation_radius: 0.2
+  inflate_unknown: false
 
 
 static_layer:
   enabled: true
-  track_unknown_space: false #不允许未知区域
+  track_unknown_space: false
   lethal_cost_threshold: 100 
 
 

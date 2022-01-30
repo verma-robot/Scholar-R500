@@ -1,0 +1,78 @@
+<launch>
+
+
+    <arg name="front_laser_port_name"  default="/dev/front_laser"/>
+    <arg name="front_laser_frame_id"   default="front_laser_frame"/>
+    <arg name="front_laser_topic"   default="front_scan"/>
+    <arg name="front_node_name"   default="front_ydlidar_node"/>
+
+    <arg name="front_angle_min"  default="-180"/>
+    <arg name="front_angle_max"   default="180"/>
+
+    <arg name="rear_laser_port_name"  default="/dev/rear_laser"/>
+    <arg name="rear_laser_frame_id"   default="rear_laser_frame"/>
+    <arg name="rear_laser_topic"   default="rear_scan"/>
+    <arg name="rear_node_name"   default="rear_ydlidar_node"/>
+
+    <arg name="rear_angle_min"  default="-180"/>
+    <arg name="rear_angle_max"   default="180"/>
+
+    <!--bringup the imu -->
+    <include file="$(find scholar_r500_imu_bringup)/launch/scholar_r500_imu_bringup.launch"/>
+
+    <!--bringup the scholar r500 robot-->
+    <include file="$(find scholar_r500_base_driver)/launch/scholar_r500_base_bringup.launch"/>
+
+    <include file="$(find scholar_r500_description)/launch/display.launch"/>
+
+    <!--bringup the lidar-->
+    <include file="$(find scholar_r500_navigation)/launch/g4_laser_bringup.launch">
+
+        <arg name="port_name" value="$(arg front_laser_port_name)"/>
+        <arg name="frame_id" value="$(arg front_laser_frame_id)"/>
+        <arg name="pub_topic" value="$(arg front_laser_topic)"/>
+        <arg name="node_name"   value="$(arg front_node_name)"/>
+        <arg name="angle_min"   value="$(arg front_angle_min)"/>
+
+        <arg name="angle_max"   value="$(arg front_angle_max)"/>
+
+    </include>
+
+    <include file="$(find scholar_r500_navigation)/launch/g4_laser_bringup.launch">
+
+        <arg name="port_name" value="$(arg rear_laser_port_name)"/>
+        <arg name="frame_id" value="$(arg rear_laser_frame_id)"/>
+        <arg name="pub_topic" value="$(arg rear_laser_topic)"/>
+        <arg name="node_name"   value="$(arg rear_node_name)"/>
+
+        <arg name="angle_min"  value="$(arg rear_angle_min)"/>
+        <arg name="angle_max"   value="$(arg rear_angle_max)"/>
+
+    </include>
+
+<node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
+        <rosparam command="load" file="$(find scholar_r500_navigation)/config/gmapping_localization.yaml" />
+</node>
+
+    <node pkg="scholar_r500_navigation" type="dual_laser" name="dual_laser" output="screen"  cwd="node"/>
+
+    <!-- run pointcloud_to_laserscan node -->
+    <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan"> 
+             
+        <param name = "target_frame"  value = "base_link" />
+        <param name = "transform_tolerance"  value = "0.01" />
+        <param name = "min_height"  value = "0.0" />
+        <param name = "max_height"  value = "1.0" />
+        <param name = "angle_min"  value = "-3.14159" />
+        <param name = "angle_max"  value = "3.14159" />
+        <param name = "angle_increment"  value = "0.004" />
+        <param name = "scan_time"  value = "0.07" />
+        <param name = "range_min"  value = "0.1" />
+        <param name = "range_max"  value = "8.0" />
+        <param name = "use_inf"  value = "true" />
+        <param name = "concurrency_level"  value = "1" />
+
+        <remap from="cloud_in" to="rear_laser_to_point"/> 
+        <remap from="scan" to="scan"/>
+    </node>
+</launch>

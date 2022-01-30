@@ -1,0 +1,20 @@
+global_costmap:
+    global_frame: map
+    robot_base_frame: base_link
+    update_frequency: 5.0 #代价地图的更新频率
+    publish_frequency: 0.5 #发布频率，主要是被rviz接收
+    #static_map: true
+    rolling_window: false #是否使用动态窗口
+    transform_tolerance: 0.5 
+    width: 10 #代价地图的宽度
+    heigth: 10 #代价地图的高度
+    resolution: 0.1 #代价地图的精度，即每个网格的尺寸，应与激光雷达扫描的分辨率相关
+
+    origin_x: 0 #代价地图x坐标在世界坐标系中的位置
+    origin_y: 0 #代价地图y坐标在世界坐标系中的位置
+
+    plugins:
+      - {name: static_layer,              type: "costmap_2d::StaticLayer"} #静态地图
+      - {name: global_inflation_layer,    type: "costmap_2d::InflationLayer"}
+      - {name: obstacles_layer,           type: "costmap_2d::ObstacleLayer"}
+

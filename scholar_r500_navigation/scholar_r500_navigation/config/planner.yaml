@@ -1,0 +1,23 @@
+#base_local_planner: dwa_local_planner/DWAPlannerROS
+base_local_planner: base_local_planner/TrajectoryPlannerROS
+#base_local_planner: teb_local_planner/TebLocalPlannerROS
+#base_global_planner: global_planner/GlobalPlanner
+base_global_planner: navfn/NavfnROS
+
+shutdown_costmaps: false #当move_base不活动时，是否关闭代价地图的加载；选择不加载
+controller_frequency: 10.0 #base_local_planner使用
+controller_patience: 4.0 #等待控制速度的时间间隔，超过此此时间，则认为局部规划失败
+
+planner_frequency: 1.0 #全局规划器的执行频率。如果为0则只有出现新的目标点，才会重新规划
+planner_patience: 5.0 #全局路径规划的时间，超时认为规划失败
+  
+max_planning_retries: -1 #在执行恢复行为之前计划重试的次数，默认为-1，表示全局规划失败后立即执行恢复模块
+
+oscillation_timeout: 5.0 #执行恢复行动之前允许振荡的时间
+oscillation_distance: 0.2 #机器人必须移动多远（以米计）才被视为不摆动；如果出现摆动则说明全局规划失败，将在超时后执行恢复模块
+conservative_reset:
+   reset_distance: 1.0
+ 
+recovery_behavior_enabled: true #是否使用恢复模块
+clearing_rotation_allowed: false #是否允许旋转恢复行为
+

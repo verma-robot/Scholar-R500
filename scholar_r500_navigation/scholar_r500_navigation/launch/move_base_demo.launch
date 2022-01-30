@@ -1,0 +1,23 @@
+
+
+<launch>
+
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find scholar_r500_navigation)/map/map.yaml " />
+
+  <include file="$(find scholar_r500_navigation)/launch/move_base.launch" >
+    
+        <arg name="odom_topic" value="/odometry/filtered"/>
+
+        <arg name="odom_topic" value="/cmd_vel"/>
+
+  </include>
+
+
+  <include file="$(find scholar_r500_navigation)/launch/amcl.launch" >
+
+          <arg name="use_map_topic" value="false"/>
+          <arg name="scan_topic" value="/scan"/>
+
+  </include>
+
+</launch>

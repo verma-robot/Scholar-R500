@@ -1,0 +1,31 @@
+<launch>
+
+  <arg name="port_name"  default="/dev/rear_laser"/>
+  <arg name="frame_id"   default="frame_id"/>
+
+  <arg name="angle_min"  default="-180"/>
+  <arg name="angle_max"   default="180"/>
+  <arg name="pub_topic"  default="front_scan"/>
+
+  <arg name="node_name"  default="ydlidar_node"/>
+
+  <node name="$(arg node_name)"  pkg="ydlidar"  type="ydlidar_node" output="screen" respawn="false" >
+    <param name="port"         type="string" value="$(arg port_name)"/>  
+    <param name="baudrate"     type="int"    value="115200"/>
+    <param name="frame_id"     type="string" value="$(arg frame_id)"/>
+    <param name="pub_topic"     type="string" value="$(arg pub_topic)"/>
+
+    <param name="low_exposure"  type="bool"   value="false"/>
+    <param name="resolution_fixed"    type="bool"   value="true"/>
+    <param name="auto_reconnect"    type="bool"   value="true"/>
+    <param name="reversion"    type="bool"   value="false"/>
+    <param name="angle_min"    type="double" value="$(arg angle_min)" />
+    <param name="angle_max"    type="double" value="$(arg angle_max)" />
+    <param name="range_min"    type="double" value="0.1" />
+    <param name="range_max"    type="double" value="8.0" />
+    <param name="ignore_array" type="string" value="" />
+    <param name="samp_rate"    type="int"    value="9"/>
+    <param name="frequency"    type="double" value="7"/>
+  </node>
+  
+</launch>

@@ -1,0 +1,38 @@
+<launch>
+
+
+   <arg name="node_name"             value="velocity_smoother"/>
+    <arg name="nodelet_manager_name"  value="nodelet_manager"/>
+
+    <arg name="config_file"           value="$(find scholar_r500_navigation)/config/yocs_velocity_smoother.yaml"/>
+    <arg name="raw_cmd_vel_topic"     value="/scholar_r500/cmd_vel"/><!--输入话题-->
+    <arg name="smooth_cmd_vel_topic"  value="/cmd_vel"/><!--输出话题-->
+    <arg name="robot_cmd_vel_topic"   value="/cmd_vel"/><!--反馈话题-->
+    <arg name="odom_topic"            value="/odometry/filtered"/> 
+
+  <include file="$(find scholar_r500_navigation)/launch/move_base.launch" >
+    
+        <arg name="odom_topic" value="/odometry/filtered"/>
+        <arg name="cmd_vel_topic" value="/scholar_r500/cmd_vel"/>
+
+  </include>
+
+  <include file="$(find scholar_r500_navigation)/launch/gmapping.launch">
+            <arg name="scan_topic" value="/scan"/>
+  </include>
+  
+    <!--node pkg="nodelet" type="nodelet" name="$(arg nodelet_manager_name)" args="manager"/> 
+
+    <include file="$(find yocs_velocity_smoother)/launch/velocity_smoother.launch">
+        <arg name="node_name"             value="$(arg node_name)"/>
+        <arg name="nodelet_manager_name"  value="$(arg nodelet_manager_name)"/>
+        <arg name="config_file"           value="$(arg config_file)"/>
+        <arg name="raw_cmd_vel_topic"     value="$(arg raw_cmd_vel_topic)"/>
+        <arg name="smooth_cmd_vel_topic"  value="$(arg smooth_cmd_vel_topic)"/>
+        <arg name="robot_cmd_vel_topic"   value="$(arg robot_cmd_vel_topic)"/>
+        <arg name="odom_topic"            value="$(arg odom_topic)"/>
+  </include-->
+
+  <!--node name="map_saver" pkg="map_server" type="map_saver" args="$(find scholar_r500_navigation)/map/map.yaml " /-->
+
+</launch>

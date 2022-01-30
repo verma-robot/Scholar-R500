@@ -1,0 +1,60 @@
+<launch>
+
+  <arg name="scan_topic" default="/scan" />
+  <arg name="use_map_topic" default="false" />
+
+  <node pkg="amcl" type="amcl" name="amcl">
+
+    <param name="odom_frame_id" value="/odom"/><!--里程计坐标系-->
+    <param name="base_frame_id" value="/base_link"/><!--机器人底盘坐标系-->
+    <param name="global_frame_id" value="/map"/><!--定位系统的全局坐标系-->
+
+     <!--滤波器参数-->>
+    <param name="min_particles" value="100"/> <!--粒子滤波器使用的最小粒子数量-->
+    <param name="max_particles" value="5000"/><!--粒子滤波器使用的最大粒子数量-->
+    <param name="kld_err" value="0.01"/><!--真实分布与估计分布之间的最大误差-->
+    <param name="kld_z" value="0.99"/><!--上标准分位数（1-p），其中p是估计分布上误差小于kld_err的概率。-->
+    <param name="update_min_d" value="0.05"/><!--执行一次滤波器更新所需的最小位移，单位米-->
+    <param name="update_min_a" value="0.0436"/><!--执行一次滤波器更新所需的最小转角，单位弧度-->
+    <param name="resample_interval" value="2"/><!--重采样间隔，即至少进行了~resample_interval次的滤波器更新之后，才能进行一次重采样。-->
+    <param name="transform_tolerance" value="0.5"/><!--推迟发布坐标变换的时间，单位秒-->
+    <param name="recovery_alpha_slow" value="0.001"/><!--慢速平均权重滤波器(slow average weight filter)的指数衰减速率，用于确定添加随机位姿的时机，以达到recover的目的。一般可以取0.001。-->
+    <param name="recovery_alpha_fast" value="0.1"/><!-- 快速平均权重滤波器(fast average weight filter)的指数衰减速率，用于确定添加随机位姿的时机，以达到recover的目的。一般可以取0.1。-->
+    <param name="gui_publish_rate" value="-1.0"/><!--发布扫描数据和路径到可视化界面的最大频率,-1关闭此功能-->
+    <!--param name="save_pose_rate" value="0.5"/--><!--保存最近一次估计的位姿和协方差到参数服务器中的最大频率，即修改~initial_pos_*和~intial_cov*。-1关闭此功能。-->
+
+    <!--激光雷达模型-->
+    <param name="laser_max_beams" value="20"/><!--更新滤波器的时候，使用激光扫描束的间隔数量。一方面可以减少计算量，另一方面也是因为临近的激光数据之间也不是独立的。-->
+    <param name="laser_max_range" value="8.0"/><!--激光扫描的最大距离，该值为-1时，amcl将使用激光传感器上报数据中的最大值。-->
+    <param name="laser_min_range" value="0.3"/><!--激光扫描的最小距离，该值为-1时，amcl将使用激光传感器上报数据中的最小值。-->
+    <param name="laser_z_hit" value="0.95"/><!--传感器模型中的z_hit部分的混合权重。-->
+    <param name="laser_z_rand" value="0.05"/><!--传感器模型中的z_rand部分的混合权重。-->
+    <param name="laser_sigma_hit" value="0.2"/><!-- 	z_hit部分的高斯标准差。-->
+    <param name="laser_lambda_short" value="0.1"/><!--z_short部分的指数衰减系数。-->
+    <param name="laser_likelihood_max_dist" value="2.0"/><!--似然场模型中，对障碍物膨胀的最大距离。-->
+    <param name="laser_model_type" value="likelihood_field"/><!--激光传感器模型-->
+
+
+    <param name="use_map_topic" value="$(arg use_map_topic)"/><!--该参数为真时，amcl将订阅一个map主题来接收地图数据。否则通过请求map_server的服务来获取地图数据。-->
+    <param name="first_map_only" value="false"/><!--该参数为真时，amcl将只使用所订阅主题的第一帧地图数据进行定位，而不再更新地图。-->
+
+<!--里程计模型-->
+    <param name="odom_model_type" value="diff"/><!--里程计模型类型，可以是"diff"、"omni"、"diff-corrected"、"omni-corrected"。-->
+    <param name="odom_alpha1" value="0.04"/><!--机器人运动模型中，旋转部分的旋转期望噪声。-->
+    <param name="odom_alpha2" value="0.04"/><!--机器人运动模型的平移部分的旋转期望噪声-->
+    <param name="odom_alpha3" value="0.060"/><!--机器人运动模型的平移部分的平移期望噪声-->
+    <param name="odom_alpha4" value="0.04"/><!--机器人运动模型的旋转部分的平移期望噪声。-->
+    <param name="tf_broadcast" value="true"/><!--设置为false，将不发布从全局坐标到里程计坐标的变换关系。-->
+
+<!--初始粒子分布-->
+    <param name="initial_pose_x" value="0.0"/> <!-- 初始位姿中心的x分量，用作初始位姿的高斯分布的均值。-->>
+    <param name="initial_pose_y" value="0.0"/> <!-- 初始位姿中心的y分量，用作初始位姿的高斯分布的均值。-->>
+    <param name="initial_pose_a" value="0.0"/> <!-- 初始方向角，用作初始位姿的高斯分布的均值。-->>
+    <param name="initial_cov_xx" value="0.01"/> <!--初始位姿方差(x*x)，用作初始位姿的高斯分布的协方差矩阵-->>
+    <param name="initial_cov_yy" value="0.01"/><!-- 初始位姿方差(y*y)，用作初始位姿的高斯分布的协方差矩阵-->>
+    <param name="initial_cov_aa" value="0.01"/><!-- 初始方向角方差(a*a)，用作初始位姿的高斯分布的协方差矩阵-->>
+
+    <remap from="scan" to="$(arg scan_topic)"/>
+  </node>
+
+</launch>

@@ -1,0 +1,18 @@
+<launch>
+   
+
+   <arg name="g" default="9.805" />
+   <arg name="port_name" default="/dev/ttyUSB1" />
+   <arg name="port_rate" default="115200" />
+   <arg name="ns" default="scholar_imu" />
+
+   <node pkg="scholar_r500_imu_bringup" type="scholar_r500_imu_driver" name="scholar_r500_imu_driver" output="screen" respawn ="true" respawn_delay ="5" >
+        <param name="port_name" value="$(arg port_name)" />         
+        <param name="g" value="$(arg g)" />    
+        <param name="port_rate" value="$(arg port_rate)" />    
+        <param name="ns" value="$(arg ns)" />    
+   </node>
+      
+	
+	
+</launch>

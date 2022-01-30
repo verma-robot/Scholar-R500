@@ -11,8 +11,6 @@
         <param name="g" value="$(arg g)" />    
         <param name="port_rate" value="$(arg port_rate)" />    
         <param name="ns" value="$(arg ns)" />    
-   </node>
-      
-	
-	
+   </node>    
+		
 </launch>

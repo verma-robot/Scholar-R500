@@ -52,13 +52,13 @@ namespace scholar_r500
    const float PI = 3.1416;
 
        
-	class scholar_r500_hardware
-	{
-		public:
-		   scholar_r500_hardware(std::string port_name, unsigned int port_rate);
-		   ~scholar_r500_hardware();
+   class scholar_r500_hardware
+   {
+      public:
+         scholar_r500_hardware(std::string port_name, unsigned int port_rate);
+	 ~scholar_r500_hardware();
                    
-		   bool init(std::string port_name, unsigned int port_rate); 
+	 bool init(std::string port_name, unsigned int port_rate); 
 
          bool spOnce(double linear_speed, double angular_speed);
          bool read_msg();	
@@ -92,11 +92,10 @@ namespace scholar_r500
          float scholar_r500_max_acc_x;
          float scholar_r500_max_acc_w;
 
-
       private:
 
          void readSpeedCommand();                     
-		   void writeSpeedCommand(double linear_speed, double angular_speed);
+	 void writeSpeedCommand(double linear_speed, double angular_speed);
          void read_product_data();
          void sudden_stop();
          void disable_sonar_sudden_stop();
@@ -106,7 +105,6 @@ namespace scholar_r500
 
 	 ros::Time current_time, last_time;
          ros::Time write_current_time, write_last_time;
-
 
          boost::asio::io_service iosev;
          boost::asio::serial_port *sp;
@@ -133,7 +131,7 @@ namespace scholar_r500
          union sonar_distance sonar[4];
          struct motor_data motor_data;                    
 
-	};
+   };
     
 }
 

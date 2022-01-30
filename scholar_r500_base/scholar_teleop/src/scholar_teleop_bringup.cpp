@@ -16,8 +16,7 @@ void handler(int sig)
 
 int main(int argc, char** argv)  
 {  
-    ros::init(argc,argv,"scholar_teleop", ros::init_options::AnonymousName | ros::init_options::NoSigintHandler);  
-    
+    ros::init(argc,argv,"scholar_teleop", ros::init_options::AnonymousName | ros::init_options::NoSigintHandler);      
 
     ros::NodeHandle n_("~");      
 
@@ -28,14 +27,11 @@ int main(int argc, char** argv)
     n_.getParam("scholar_teleop_vx_speed", scholar_teleop_vx_speed);
     n_.getParam("scholar_teleop_angular_speed", scholar_teleop_angular_speed);
     n_.getParam("cmd_vel_topic_name", cmd_vel_topic_name);
-            std::cout << cmd_vel_topic_name<<std::endl;
     
     scholar_teleop::ScholarTeleopNode scholar_teleop_data(n_ , cmd_vel_topic_name);  
 
     scholar_teleop_data.vx = (float)scholar_teleop_vx_speed;
     scholar_teleop_data.vth = scholar_teleop_angular_speed;
-    //scholar_teleop_data.cmd_vel_new_name = cmd_vel_topic_name;
-
 
     tcgetattr(0, &scholar_teleop_data.old_data);  
 

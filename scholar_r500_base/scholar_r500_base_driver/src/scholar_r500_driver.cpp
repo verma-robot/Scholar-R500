@@ -70,14 +70,14 @@ bool scholar_r500_hardware::init(std::string port_name, unsigned int port_rate)
           }
           //设置串口相关参数
           sp -> set_option(boost::asio::serial_port::baud_rate(115200));
-	     sp -> set_option(boost::asio::serial_port::flow_control(boost::asio::serial_port::flow_control::none));
-	     sp -> set_option(boost::asio::serial_port::parity(boost::asio::serial_port::parity::none));
-	     sp -> set_option(boost::asio::serial_port::stop_bits(boost::asio::serial_port::stop_bits::one));
-	     sp -> set_option(boost::asio::serial_port::character_size(8));
+	  sp -> set_option(boost::asio::serial_port::flow_control(boost::asio::serial_port::flow_control::none));
+	  sp -> set_option(boost::asio::serial_port::parity(boost::asio::serial_port::parity::none));
+	  sp -> set_option(boost::asio::serial_port::stop_bits(boost::asio::serial_port::stop_bits::one));
+	  sp -> set_option(boost::asio::serial_port::character_size(8));
 
           ros::Time::init();
-	     current_time = ros::Time::now();
-	     last_time = ros::Time::now();          
+	  current_time = ros::Time::now();
+	  last_time = ros::Time::now();          
           write_current_time = ros::Time::now();
           write_last_time = ros::Time::now();      
 
@@ -236,7 +236,6 @@ void scholar_r500_hardware::handle_read( char buffer_data[], boost::system::erro
           {
 
                    //union motor_speed motor_spped_tem;  
-
 
                motor_data.motor_disconnect[0] = buffer_data[7];
                if(!motor_data.motor_disconnect[0])//电机没有失去联系，更新转速

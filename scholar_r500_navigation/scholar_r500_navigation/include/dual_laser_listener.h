@@ -43,9 +43,6 @@ namespace scholar_dual_laser
             void rear_laser_callback(const sensor_msgs::LaserScanConstPtr& msg);
             void odom_filter_callback(const nav_msgs::OdometryConstPtr& msg);
 
-
-            void joint_together();
-
             laser_geometry::LaserProjection projector_;
 
             tf::TransformListener tf_listner;
@@ -55,12 +52,7 @@ namespace scholar_dual_laser
             pcl::PointCloud<pcl::PointXYZ> front_cloud;
             pcl::PointCloud<pcl::PointXYZ> rear_cloud;
 
-            sensor_msgs::PointCloud2 dual_laser_cloud;
-            
-            bool get_front_laser = false;
-            bool get_rear_laser = false;
-
-            bool done_together = false;
+            sensor_msgs::PointCloud2 dual_laser_cloud;            
 
             ros::Time front_last_time;
             ros::Time rear_last_time;

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<robot name="scholar_r500" xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <link
+        name="base_link">
+        <inertial>
+            <origin
+                xyz="-0.0027398 -9.536E-05 0.12364"
+                rpy="0 0 0" />
+            <mass
+                value="13.684" />
+            <inertia
+                ixx="0.38891"
+                ixy="-0.00029693"
+                ixz="0.0018965"
+                iyy="0.47016"
+                iyz="6.655E-05"
+                izz="0.60684" />
+        </inertial>
+        <visual>
+            <origin
+                xyz="0 0 0"
+                rpy="0 0 0" />
+            <geometry>
+                <mesh
+                    filename="package://scholar_r500_description/meshes/base_link.STL" />
+            </geometry>
+            <material
+                name="">
+                <color
+                    rgba="0.98824 0.38431 0 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin
+                xyz="0 0 0"
+                rpy="0 0 0" />
+            <geometry>
+             <mesh
+                filename="package://scholar_r500_description/meshes/base_link.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="imu_link"/>    
+    <joint
+        name="inu_joint"
+        type="fixed">
+        <origin
+            xyz="0.0027 -0.006 0.013"
+            rpy="0 0 3.1416" />
+        <parent
+            link="base_link" />
+        <child
+            link="imu_link" />
+        <axis
+            xyz="0 0 0" />
+    </joint>
+    <link name = "laser_fix_link" />
+
+    <joint
+        name="laser_joint"
+       type="fixed">
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <parent
+        link="base_link" />
+      <child
+        link="laser_fix_link" />
+      <axis
+        xyz="0 0 0" />
+   </joint>
+
+    <link
+      name="front_laser_link">       
+    </link>
+    <link
+      name="front_laser_frame">     
+    </link>
+
+    <joint
+      name="front_laser_joint"
+      type="fixed">
+      <origin
+        xyz="0 0 0.03172"
+        rpy="0 0 0" />
+      <parent
+        link="front_laser_link" />
+      <child
+        link="front_laser_frame" />
+      <axis
+        xyz="0 0 0" />
+    </joint>
+    <joint
+        name="front_laser_fixed_joint"
+        type="fixed">
+        <origin
+            xyz="0.2 0 0.046"
+            rpy="0 0 3.1416" />
+        <parent
+            link="laser_fix_link" />
+        <child
+            link="front_laser_link" />
+        <axis
+            xyz="0 0 0" />
+    </joint>
+
+    <link
+      name="rear_laser_link">    
+    </link>
+    <link
+      name="rear_laser_frame">      
+    </link>
+
+    <joint
+      name="rear_laser_joint"
+      type="fixed">
+      <origin
+        xyz="0 0 0.03172"
+        rpy="0 0 0" />
+      <parent
+        link="rear_laser_link" />
+      <child
+        link="rear_laser_frame" />
+      <axis
+        xyz="0 0 0" />
+    </joint>
+    <joint
+        name="rear_laser_fixed_joint"
+        type="fixed">
+        <origin
+            xyz="-0.20011 0.00051247 0.046"
+            rpy="0 0 0" />
+        <parent
+            link="laser_fix_link" />
+        <child
+            link="rear_laser_link" />
+        <axis
+            xyz="0 0 0" />
+    </joint>
+    <link  name="sonar_1_link"/>    
+    <joint
+        name="sonar_1_joint"
+        type="fixed">
+        <origin
+            xyz="0.249 0.09 0.119"
+            rpy="0 0 0" />
+        <parent
+            link="base_link" />
+        <child
+            link="sonar_1_link" />
+        <axis
+            xyz="0 0 0" />
+    </joint>
+    <link name="sonar_2_link"/>    
+    <joint
+        name="sonar_2_joint"
+        type="fixed">
+        <origin
+            xyz="0.249 -0.09 0.119"
+            rpy="0 0 0" />
+        <parent
+            link="base_link" />
+        <child
+            link="sonar_2_link" />
+        <axis
+            xyz="0 0 0" />
+    </joint>
+    <link  name="sonar_3_link"/>   
+    <joint
+        name="sonar_3_joint"
+        type="fixed">
+        <origin
+            xyz="-0.251 0.09 0.119"
+            rpy="0 0 -3.1416" />
+        <parent
+            link="base_link" />
+        <child
+            link="sonar_3_link" />
+        <axis
+            xyz="0 0 0" />
+    </joint>
+    <link  name="sonar_4_link"/>   
+    <joint
+        name="sonar_4_joint"
+        type="fixed">
+        <origin
+            xyz="-0.251 -0.09 0.119"
+            rpy="0 0 -3.1416" />
+        <parent
+            link="base_link" />
+        <child
+            link="sonar_4_link" />
+        <axis
+            xyz="0 0 0" />
+    </joint>
+
+    <link name="top_plate_link" />
+      <joint
+    name="top_plate_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0.24078"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="top_plate_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>

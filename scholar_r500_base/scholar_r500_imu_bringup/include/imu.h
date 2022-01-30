@@ -18,23 +18,23 @@ namespace scholar_r500_imu
 
     }uTof;
 
-	class IMU_DRIVER
-	{
-		public:
-		    IMU_DRIVER(std::string port_name, unsigned int port_rate, float g);
-		    ~IMU_DRIVER();
+    class IMU_DRIVER
+    {
+        public:
+	    IMU_DRIVER(std::string port_name, unsigned int port_rate, float g);
+	    ~IMU_DRIVER();
 
             sensor_msgs::Imu imu_data;
 
-		    bool init(std:: string port_name, int port_rate, float g);
-		    bool readOnce();
+            bool init(std:: string port_name, int port_rate, float g);
+	    bool readOnce();
                    
             bool read_msg();	
             bool IMU_READY;
                     
                     
-		private:
-		    ros::Time current_time, last_time;
+	private:
+	    ros::Time current_time, last_time;
 
             boost::asio::io_service iosev;
             boost::asio::serial_port *sp;
@@ -46,7 +46,7 @@ namespace scholar_r500_imu
             bool exception;
             uTof temp_data;
 
-	};
+    };
     
 }
 

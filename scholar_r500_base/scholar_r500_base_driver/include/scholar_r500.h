@@ -68,7 +68,7 @@ namespace scholar_r500
 
       public:
 
-		   bool read_flag;
+         bool read_flag;
          bool write_falg;
          bool scholar_r500_ready;
          bool read_product_data_flag;
@@ -93,7 +93,7 @@ namespace scholar_r500
          float scholar_r500_max_acc_w;
 
 
-		private:
+      private:
 
          void readSpeedCommand();                     
 		   void writeSpeedCommand(double linear_speed, double angular_speed);
@@ -102,9 +102,9 @@ namespace scholar_r500
          void disable_sonar_sudden_stop();
          void enable_sonar_sudden_stop(uint16_t sonar_sudden_range);
                     
-		private:
+      private:
 
-		   ros::Time current_time, last_time;
+	 ros::Time current_time, last_time;
          ros::Time write_current_time, write_last_time;
 
 
@@ -119,12 +119,12 @@ namespace scholar_r500
          //里程计相关
 
          double x;
-		   double y;
-		   double th;
+	 double y;
+	 double th;
 
-		   double vx;
+	 double vx;
          double vx_old;
-		   double vth;
+	 double vth;
          double vth_old;
 
          double last_write_vx;

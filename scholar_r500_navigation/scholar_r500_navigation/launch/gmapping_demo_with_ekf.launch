@@ -5,9 +5,9 @@
     <arg name="nodelet_manager_name"  value="nodelet_manager"/>
 
     <arg name="config_file"           value="$(find scholar_r500_navigation)/config/yocs_velocity_smoother.yaml"/>
-    <arg name="raw_cmd_vel_topic"     value="/scholar_r500/cmd_vel"/><!--输入话题-->
-    <arg name="smooth_cmd_vel_topic"  value="/cmd_vel"/><!--输出话题-->
-    <arg name="robot_cmd_vel_topic"   value="/cmd_vel"/><!--反馈话题-->
+    <arg name="raw_cmd_vel_topic"     value="/scholar_r500/cmd_vel"/>
+    <arg name="smooth_cmd_vel_topic"  value="/cmd_vel"/>
+    <arg name="robot_cmd_vel_topic"   value="/cmd_vel"/>
     <arg name="odom_topic"            value="/odometry/filtered"/> 
 
   <include file="$(find scholar_r500_navigation)/launch/move_base.launch" >

@@ -1,0 +1,2 @@
+float32 battery_percent
+float32 battery_voltage

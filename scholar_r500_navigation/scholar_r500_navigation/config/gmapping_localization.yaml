@@ -2,46 +2,44 @@ odom_frame: /odom
 base_link_frame: /base_link
 world_frame: /odom
 
-two_d_mode: true #平面机器人，
+two_d_mode: true
 
-frequency: 20 #状态估计滤波器的频率
-publish_acceleration: false #是否发布加速度，默认false
+frequency: 20
+publish_acceleration: false
 
-publish_tf: true #是否发布tf变换，默认为true
+publish_tf: true
 
-##融合里程计的配置
 odom0: /scholar_r500_bringup/scholar_r500/odom
 odom0_config: [true, true, false,
                false, false, true,
                true, false, false,
                false, false, true,
-               false, false, false] # 融合X ， Y ， YAW， vel_x, w_z
-#odom0_differential: true # 测量值减去上一次的测量值，转换成速度进行处理
-#odom0_relative: true #测量值减去第一次的测量值，进行处理
+               false, false, false]
+#odom0_differential: true
+#odom0_relative: true
 odom0_queue_size: 20
 
-##融合的imu'的配置
 imu0: /scholar_r500_imu_driver/scholar_imu/imu_data
 imu0_config: [false, false, false,
               false, false, false,
               false, false, false,
               false, false, true,
-              false, false, false] #融合自转角速度，YAW，YAW会因为加速度等的影响造成偏差
+              false, false, false]
 #imu0_differential: true
 imu0_relative: true
 imu0_queue_size: 20
-imu0_remove_gravitational_acceleration: true #去掉重力加速度的影响
-gravitational_acceleration: 9.805 #重力加速度的值
+imu0_remove_gravitational_acceleration: true
+gravitational_acceleration: 9.805
 
-use_control: true #融合cmd_vel数据
+use_control: true
 stamped_control: false
-control_timeout: 0.05 #超过01秒没有接收到cmd_vel数据后，停止融合cmd_vel
+control_timeout: 0.05
 control_config: [true,  false, false,
-                                  false, false, true] #融合X线速度，自转角速度
-acceleration_limits: [1.0, 0.0, 0.0, 0.0, 0.0, 2.0] #加速度限制
-deceleration_limits: [1.0, 0.0, 0.0, 0.0, 0.0, 2.0] #加速度限制
-acceleration_gains: [0.5, 0.0, 0.0,  0.0, 0.0, 0.5] #加速度增益
-deceleration_gains: [0.5, 0.0, 0.0,  0.0, 0.0, 0.5] #加速度增益
+                                  false, false, true]
+acceleration_limits: [1.0, 0.0, 0.0, 0.0, 0.0, 2.0]
+deceleration_limits: [1.0, 0.0, 0.0, 0.0, 0.0, 2.0]
+acceleration_gains: [0.5, 0.0, 0.0,  0.0, 0.0, 0.5]
+deceleration_gains: [0.5, 0.0, 0.0,  0.0, 0.0, 0.5]
 smooth_lagged_data: true 
 history_length: 2.0
-dynamic_process_noise_covariance: false #机器人静止时，协方差停止增长，默认false
+dynamic_process_noise_covariance: false

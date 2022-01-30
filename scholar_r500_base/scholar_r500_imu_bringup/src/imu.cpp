@@ -62,15 +62,15 @@ bool IMU_DRIVER::init(std::string port_name, int port_rate, float g)
         tcflush(sp->lowest_layer().native_handle(), TCIOFLUSH);//清空串口输入输出缓存
 
         sp -> set_option(boost::asio::serial_port::baud_rate(port_rate));
-	    sp -> set_option(boost::asio::serial_port::flow_control(boost::asio::serial_port::flow_control::none));
-	    sp -> set_option(boost::asio::serial_port::parity(boost::asio::serial_port::parity::none));
-	    sp -> set_option(boost::asio::serial_port::stop_bits(boost::asio::serial_port::stop_bits::one));
-	    sp -> set_option(boost::asio::serial_port::character_size(8));
+	sp -> set_option(boost::asio::serial_port::flow_control(boost::asio::serial_port::flow_control::none));
+	sp -> set_option(boost::asio::serial_port::parity(boost::asio::serial_port::parity::none));
+	sp -> set_option(boost::asio::serial_port::stop_bits(boost::asio::serial_port::stop_bits::one));
+	sp -> set_option(boost::asio::serial_port::character_size(8));
 
         acc_g = g;
         ros::Time::init();
-	    current_time = ros::Time::now();
-	    last_time = ros::Time::now();
+	current_time = ros::Time::now();
+	last_time = ros::Time::now();
         IMU_READY = true;
         return true;
 

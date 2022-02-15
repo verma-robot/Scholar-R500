@@ -36,8 +36,8 @@
         <param name = "max_height"  value = "1.0" />
         <param name = "angle_min"  value = "-3.14159" />
         <param name = "angle_max"  value = "3.14159" />
-        <param name = "angle_increment"  value = "0.004" />
-        <param name = "scan_time"  value = "0.07" />
+        <param name = "angle_increment"  value = "0.0035" />
+        <param name = "scan_time"  value = "0.14" />
         <param name = "range_min"  value = "0.1" />
         <param name = "range_max"  value = "8.0" />
         <param name = "use_inf"  value = "true" />

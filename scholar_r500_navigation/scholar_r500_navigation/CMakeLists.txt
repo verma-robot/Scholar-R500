@@ -34,10 +34,3 @@ add_executable(dual_laser
  )
 add_dependencies(dual_laser ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS}) 
 target_link_libraries(dual_laser ${catkin_LIBRARIES} ${PCL_LIBRARIES})
-
-
-add_executable(rear_laser_to_cloud
-               src/laser_to_cloud.cpp
- )
-add_dependencies(rear_laser_to_cloud ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS}) 
-target_link_libraries(rear_laser_to_cloud ${catkin_LIBRARIES} ${PCL_LIBRARIES})

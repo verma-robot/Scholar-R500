@@ -50,29 +50,5 @@
 
     </include>
 
-<node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
-        <rosparam command="load" file="$(find scholar_r500_navigation)/config/gmapping_localization.yaml" />
-</node>
 
-    <node pkg="scholar_r500_navigation" type="dual_laser" name="dual_laser" output="screen"  cwd="node"/>
-
-    <!-- run pointcloud_to_laserscan node -->
-    <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan"> 
-             
-        <param name = "target_frame"  value = "base_link" />
-        <param name = "transform_tolerance"  value = "0.01" />
-        <param name = "min_height"  value = "0.0" />
-        <param name = "max_height"  value = "1.0" />
-        <param name = "angle_min"  value = "-3.14159" />
-        <param name = "angle_max"  value = "3.14159" />
-        <param name = "angle_increment"  value = "0.004" />
-        <param name = "scan_time"  value = "0.07" />
-        <param name = "range_min"  value = "0.1" />
-        <param name = "range_max"  value = "8.0" />
-        <param name = "use_inf"  value = "true" />
-        <param name = "concurrency_level"  value = "1" />
-
-        <remap from="cloud_in" to="rear_laser_to_point"/> 
-        <remap from="scan" to="scan"/>
-    </node>
 </launch>

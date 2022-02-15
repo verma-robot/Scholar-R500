@@ -20,14 +20,15 @@
   <include file="$(find scholar_r500_navigation)/launch/gmapping.launch">
             <arg name="scan_topic" value="/scan"/>
   </include>
+   
   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
         <rosparam command="load" file="$(find scholar_r500_navigation)/config/gmapping_localization.yaml" />
   </node>
 
-    <node pkg="scholar_r500_navigation" type="dual_laser" name="dual_laser" output="screen"  cwd="node"/>
+  <node pkg="scholar_r500_navigation" type="dual_laser" name="dual_laser" output="screen"  cwd="node"/>
 
     <!-- run pointcloud_to_laserscan node -->
-    <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan"> 
+  <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan"> 
              
         <param name = "target_frame"  value = "base_link" />
         <param name = "transform_tolerance"  value = "0.01" />
@@ -44,7 +45,7 @@
 
         <remap from="cloud_in" to="rear_laser_to_point"/> 
         <remap from="scan" to="scan"/>
-    </node>
+  </node>
     <!--node pkg="nodelet" type="nodelet" name="$(arg nodelet_manager_name)" args="manager"/> 
 
     <include file="$(find yocs_velocity_smoother)/launch/velocity_smoother.launch">

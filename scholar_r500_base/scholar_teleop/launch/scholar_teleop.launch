@@ -1,7 +1,7 @@
 
 <launch>
 
-    <arg name = "scholar_teleop_vx_speed" default = " 0.2 " />
+    <arg name = "scholar_teleop_vx_speed" default = " 0.1 " />
 	<arg name = "scholar_teleop_angular_speed" default = " 0.2 " />
 	<arg name = "cmd_vel_new_name" default = " cmd_vel " />
 

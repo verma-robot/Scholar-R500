@@ -58,17 +58,17 @@ bool scholar_r500_hardware::init(std::string port_name, unsigned int port_rate)
 {
      try {
 
-          sp -> open(port_name, ec); //打开串口
+          sp -> open(port_name, ec); 
           usleep(20000); 
 
-          tcflush(sp->lowest_layer().native_handle(), TCIOFLUSH);//清空串口输入输出缓存
+          tcflush(sp->lowest_layer().native_handle(), TCIOFLUSH);
 
           if(ec)
           {       
                ROS_ERROR( "Can't open serial port") ;
                throw ec;
           }
-          //设置串口相关参数
+          
           sp -> set_option(boost::asio::serial_port::baud_rate(115200));
 	  sp -> set_option(boost::asio::serial_port::flow_control(boost::asio::serial_port::flow_control::none));
 	  sp -> set_option(boost::asio::serial_port::parity(boost::asio::serial_port::parity::none));
@@ -106,23 +106,23 @@ bool scholar_r500_hardware::init(std::string port_name, unsigned int port_rate)
           int try_time = 0;
           while(read_product_data_flag == false && try_time < 5)
           {
-               read_product_data();//读取生产日期
-               listen_data(14,2);//等待读取结果
+               read_product_data();
+               listen_data(14,2);
                try_time++;
 
           }
           if(read_product_data_flag)while(scholar_r500_ready == false)scholar_r500_ready = true;               
           if(scholar_r500_ready == true)
           {
-             //  disable_sonar_sudden_stop();//禁止声波急停
-             //  listen_data(8,2);//等待读取结果
+             //  disable_sonar_sudden_stop();
+             //  listen_data(8,2);
               
                try_time = 0;
                while(disable_sonar_sudden_stop_flag == false && try_time < 5)
                {
 
-                    disable_sonar_sudden_stop();//禁止声波急停
-                    listen_data(8,2);//等待读取结果
+                    disable_sonar_sudden_stop();
+                    listen_data(8,2);
                     try_time++;
 
                }
@@ -230,15 +230,14 @@ void scholar_r500_hardware::handle_read( char buffer_data[], boost::system::erro
  
      read_buffer_size = bytes_transferred;
 
-     if(read_buffer_size == 27)//read 速度指令返回值
+     if(read_buffer_size == 27)
      {   
           if ( buffer_data[1] == 0x03 || buffer_data[2] == 0x01 || buffer_data[3] == 0x1A || buffer_data[26] == 0x6D || buffer_data[4] == 0x04)
           {
 
-                   //union motor_speed motor_spped_tem;  
 
                motor_data.motor_disconnect[0] = buffer_data[7];
-               if(!motor_data.motor_disconnect[0])//电机没有失去联系，更新转速
+               if(!motor_data.motor_disconnect[0])
                {
                     motor_data.motor_speed[0].u[1] = buffer_data[5];
                     motor_data.motor_speed[0].u[0] = buffer_data[6];
@@ -246,7 +245,7 @@ void scholar_r500_hardware::handle_read( char buffer_data[], boost::system::erro
                else ROS_ERROR("ERROR,   the RIGHT wheel disconnected");
 
                motor_data.motor_disconnect[1] = buffer_data[10];
-               if(!motor_data.motor_disconnect[1])//电机没有失去联系，更新转速
+               if(!motor_data.motor_disconnect[1])
                {
                     motor_data.motor_speed[1].u[1] = buffer_data[8];
                     motor_data.motor_speed[1].u[0] = buffer_data[9];
@@ -269,10 +268,10 @@ void scholar_r500_hardware::handle_read( char buffer_data[], boost::system::erro
                while(read_flag == false)read_flag = true;
 
           }
-          else tcflush(sp->lowest_layer().native_handle(), TCIFLUSH);//清空串口输入
+          else tcflush(sp->lowest_layer().native_handle(), TCIFLUSH);
 
      }
-     else if(read_buffer_size == 14)//读取产品信息
+     else if(read_buffer_size == 14)
      {
           if ( buffer_data[1] == 0x03 || buffer_data[2] == 0x01 || buffer_data[3] == 0x0d || buffer_data[13] == 0x6D || buffer_data[4] == 0x05)
           {
@@ -285,12 +284,12 @@ void scholar_r500_hardware::handle_read( char buffer_data[], boost::system::erro
                while(read_product_data_flag == false)read_product_data_flag = true;
 
           }
-          else tcflush(sp->lowest_layer().native_handle(), TCIFLUSH);//清空串口输入
+          else tcflush(sp->lowest_layer().native_handle(), TCIFLUSH);
 
     }
     else if(read_buffer_size == 8)
     {
-       //下发速度指令成功
+      
           if ( buffer_data[1] == 0x03 || buffer_data[2] == 0x01 || buffer_data[3] == 0x07 || buffer_data[13] == 0x6D || buffer_data[4] == 0x03)
           {
 
@@ -300,28 +299,28 @@ void scholar_r500_hardware::handle_read( char buffer_data[], boost::system::erro
           }
           else if( buffer_data[1] == 0x03 || buffer_data[2] == 0x01 || buffer_data[3] == 0x07 || buffer_data[13] == 0x6D || buffer_data[4] == 0x07)
           {
-               //串口紧急停止返回
+               
                while(sudden_stop_flag == false)sudden_stop_flag = true;
                if(buffer_data[5] == 0x05 || buffer_data[6] == 0x05)ROS_WARN_STREAM("Scholar is on SUDDEN stop status");
 
           }
           else if( buffer_data[1] == 0x03 || buffer_data[2] == 0x01 || buffer_data[3] == 0x07 || buffer_data[13] == 0x6D || buffer_data[4] == 0x08)
           {
-               //声波急停关闭
+               
                while(disable_sonar_sudden_stop_flag == false)disable_sonar_sudden_stop_flag = true;
 
           }
           else if( buffer_data[1] == 0x03 || buffer_data[2] == 0x01 || buffer_data[3] == 0x07 || buffer_data[13] == 0x6D || buffer_data[4] == 0x09)
           {
-               //声波急停打开
+              
                while(enable_sonar_sudden_stop_flag == false)enable_sonar_sudden_stop_flag = true;
 
           }
-          else tcflush(sp->lowest_layer().native_handle(), TCIFLUSH);//清空串口输入
+          else tcflush(sp->lowest_layer().native_handle(), TCIFLUSH);
 
 
     }
-    else tcflush(sp->lowest_layer().native_handle(), TCIFLUSH);//清空串口输入
+    else tcflush(sp->lowest_layer().native_handle(), TCIFLUSH);
 
 }
 
@@ -335,7 +334,7 @@ void scholar_r500_hardware::listen_data(int buffer_number, int max_seconds)
      iosev.reset();
      boost::asio::async_read(*sp, boost::asio::buffer(buf, sizeof(buf)), boost::bind(&scholar_r500_hardware::handle_read, this, buf, _1,  _2)) ;      
     
-     int ti = timer.expires_from_now(boost::posix_time::millisec(max_seconds)) ; //同步等待，程序堵塞     
+     int ti = timer.expires_from_now(boost::posix_time::millisec(max_seconds)) ;    
 
      timer.wait(ec);
      if(ti > 0)iosev.reset();
@@ -358,7 +357,7 @@ bool scholar_r500_hardware::read_msg()
      while(read_flag == true)read_flag = false;
 
      try{
-          readSpeedCommand(); //向串口发送读转速指令
+          readSpeedCommand();
           listen_data(27,2);
      }
      catch(boost::system::system_error& ecc){

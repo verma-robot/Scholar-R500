@@ -395,6 +395,8 @@ bool scholar_r500_hardware::read_msg()
      delta_y = sin(delta_th * 0.500 + th) * (vx + 2 * vx_old) * dt / 3.00;
 
      last_time = current_time;
+	vx_old = vx;
+	vth_old = vth;
 
      x += delta_x;
      y += delta_y;

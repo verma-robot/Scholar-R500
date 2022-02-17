@@ -44,10 +44,10 @@
 
        <param name = "minimumScore"  value = "60" />
 
-       <param name = "srr"  value = "0.01" />
-       <param name = "srt"  value = "0.02" />
-       <param name = "str"  value = "0.01" />
-       <param name = "stt"  value = "0.02" />
+       <param name = "srr"  value = "0.1" />
+       <param name = "srt"  value = "0.2" />
+       <param name = "str"  value = "0.1" />
+       <param name = "stt"  value = "0.2" />
 
     <remap from="scan" to="$(arg scan_topic)"/>
     </node>

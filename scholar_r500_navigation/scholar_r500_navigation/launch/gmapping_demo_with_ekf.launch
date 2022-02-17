@@ -10,12 +10,6 @@
     <arg name="robot_cmd_vel_topic"   value="/cmd_vel"/>
     <arg name="odom_topic"            value="/odometry/filtered"/> 
 
-  <include file="$(find scholar_r500_navigation)/launch/move_base.launch" >
-    
-        <arg name="odom_topic" value="/odometry/filtered"/>
-        <arg name="cmd_vel_topic" value="/scholar_r500/cmd_vel"/>
-
-  </include>
 
   <include file="$(find scholar_r500_navigation)/launch/gmapping.launch">
             <arg name="scan_topic" value="/scan"/>

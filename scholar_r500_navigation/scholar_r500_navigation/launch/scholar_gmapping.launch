@@ -1,7 +1,7 @@
 <launch>
     <arg name="scan_topic" default="front_scan" />
 
-    <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen" clear_params="true">
+    <node pkg="scholar_gmapping" type="scholar_gmapping" name="scholar_gmapping" output="screen" clear_params="true">
        
        <param name = "odom_frame"  value = "/odom" />
        <param name = "base_frame"  value = "/base_link" />
@@ -19,11 +19,16 @@
        <param name = "temporalUpdate"  value = "0.5" />
        <param name = "resampleThreshold"  value = "0.3" />
 
-       <param name = "xmin"  value = "-20.0" />
-       <param name = "ymin"  value = "-20.0" />
-       <param name = "xmax"  value = "20.0" />
-       <param name = "ymax"  value = "20.0" />
+       <param name = "xmin"  value = "-10.0" />
+       <param name = "ymin"  value = "-10.0" />
+       <param name = "xmax"  value = "10.0" />
+       <param name = "ymax"  value = "10.0" />
        <param name = "delta"  value = "0.05" />
+        
+       <param name = "totalmap_xmin"  value = "-30.0" />
+       <param name = "totalmap_ymin"  value = "-30.0" />
+       <param name = "totalmap_xmax"  value = "30.0" />
+       <param name = "totalmap_ymax"  value = "30.0" />
 
        <param name = "llsamplerange"  value = "0.01" />
        <param name = "llsamplestep"  value = "0.01" />
